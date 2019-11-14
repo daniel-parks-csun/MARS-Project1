@@ -15,7 +15,7 @@ resource "aws_autoscaling_group" "project1-autoscale" {
   min_size                  = 1
   max_size                  = 2
   health_check_grace_period = 300
-  health_check_type         = "ELB"  #will be the load balancer
+  health_check_type         = "ELB" 
   load_balancers            = ["${aws_elb.project1-elb.name}"]
   force_delete              = true
 
