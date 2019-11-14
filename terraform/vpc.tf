@@ -87,3 +87,32 @@ resource "aws_internet_gateway" "mars-gateway" {
     Name = "ig_tag"
   }
 }
+
+#Route tables
+
+resource "aws_route_table" "mars-public" {
+  vpc_id = aws_vpc.mars-vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.mars-gateway.id
+  }
+  tags = {
+    Name = "project1"
+  }
+}
+
+# Route associations public
+resource "aws_route_table_association" "mars-public-1-a" {
+  subnet_id      = aws_subnet.mars-public-1.id
+  route_table_id = aws_route_table.mars-public.id
+}
+
+resource "aws_route_table_association" "mars-public-2-a" {
+  subnet_id      = aws_subnet.mars-public-2.id
+  route_table_id = aws_route_table.mars-public.id
+}
+
+resource "aws_route_table_association" "mars-public-3-a" {
+  subnet_id      = aws_subnet.mars-public-3.id
+  route_table_id = aws_route_table.mars-public.id
+}
