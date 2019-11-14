@@ -1,5 +1,8 @@
-resource "aws_iam_role" "ec2-role" {
-    name = "ec2-role"
+resource "aws_iam_user" "hugo-bot" {
+    Name = "hugo-bot"
+}
+esource "aws_iam_role" "hugo-ec2-role" {
+    name = "hugo-ec2-role"
     assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -7,7 +10,7 @@ resource "aws_iam_role" "ec2-role" {
         {
             "Action": "sts:AssumeRole",
             "Principal": {
-            "Service": "ec2.amazonaws.com"
+                "Service": "ec2.amazonaws.com"
             },
             "Effect": "Allow",
             "Sid": ""
@@ -16,16 +19,16 @@ resource "aws_iam_role" "ec2-role" {
 }
 EOF
     tags = {
-        Name = "ec2-role"
+        Name = "hugo-ec2-role"
     }
 }
-resource "aws_iam_instance_profile" "ec2-role" {
-    name = "ec2-role"
-    role = "${aws_iam_role.ec2-role.name}"
+resource "aws_iam_instance_profile" "hugo-ec2-role" {
+    name = "hugo-ec2-role"
+    role = "${aws_iam_role.hugo-ec2-role.name}"
 }
-resource "aws_iam_role_policy" "ec2-role-policy" {
-    name = "ec2-role-policy"
-    role = "${aws_iam_role.ec2-role.id}"
+resource "aws_iam_role_policy" "hugo-ec2-role-policy" {
+    name = "hugo-ec2-role-policy"
+    role = "${aws_iam_role.hugo-ec2-role.id}"
     policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -45,6 +48,35 @@ resource "aws_iam_role_policy" "ec2-role-policy" {
             "Action": "s3:ListAllMyBuckets",
             "Resource": "arn:aws:s3:::*"
         }
+    ]
+}
+EOF
+}
+
+resource "aws_iam_role" "bastion-role" {
+    name = "bastion-role"
+    assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+    ]
+}
+EOF
+    tags = {
+        Name = "bastion-role"
+    }
+}
+resource "aws_iam_instance_profile" "bastion-role" {
+    name = "bastion-role"
+    role = "${aws_iam_role.bastion-role.name}"
+}
+resource "aws_iam_role_policy" "bastion-role-policy" {
+    name = "bastion-role-policy"
+    role = "${aws_iam_role.bastion-role.id}"
+    policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
     ]
 }
 EOF
