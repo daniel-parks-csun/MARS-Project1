@@ -4,7 +4,7 @@ resource "aws_launch_configuration" "project1-launchconfig" {
     name_prefix             = "mars-launchconfig"
     image_id                = "ami-02fee746d0aeb7342"  #Needs to change to the hugo server once made
     instance_type           = "t2.micro"    
-    key_name                = "edwin's key"
+    key_name                = "hugo.key"
     security_groups         = ["${aws_security_group.allow-tls.id}"]  
 }
 #ScaleUp
@@ -12,8 +12,8 @@ resource "aws_autoscaling_group" "project1-autoscale" {
   name                      = "project1-autoscale"
   vpc_zone_identifier       = ["${aws_subnet.mars-private-1.id}","${aws_subnet.mars-private-2.id}"]
   launch_configuration      = "${aws_launch_configuration.project1-launchconfig.name}"
-  min_size                  = 1
-  max_size                  = 2
+  min_size                  = 2
+  max_size                  = 3
   health_check_grace_period = 300
   health_check_type         = "ELB" 
   load_balancers            = ["${aws_elb.project1-elb.name}"]

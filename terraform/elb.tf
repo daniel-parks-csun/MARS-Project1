@@ -11,6 +11,15 @@ resource "aws_elb" "project1-elb" {
         lb_port           = 80
         lb_protocol       = "http"
     }
+
+    //listener {
+        //instance_port     = 443
+        //instance_protocol = "https"
+        //lb_port           = 443
+        //lb_protocol       = "https"
+        //ssl_certificate_id = "arn:aws:iam::123456789012:server-certificate/certName" #UPDATE with our cert
+    //}
+
     health_check{
         healthy_threshold   = 2
         unhealthy_threshold = 2
@@ -44,5 +53,16 @@ resource "aws_route53_record" "build" {
       evaluate_target_health = false
   }
 }
+resource "aws_route53_record" "build2" {
+    provider       = "aws"
+    zone_id        = "${data.aws_route53_zone.mars.zone_id}"
+    name           = "www"
+    type           = "CNAME"
+  
+  alias {
+      name                   = "${aws_elb.project1-elb.dns_name}"
+      zone_id                = "${aws_elb.project1-elb.zone_id}"
+      evaluate_target_health = false
+  }
 
-
+}

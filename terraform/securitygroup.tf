@@ -13,6 +13,20 @@ resource "aws_security_group" "allow-tls" {
         cidr_blocks = ["0.0.0.0/0"]
      }
 
+    ingress {
+         from_port = 53
+         to_port   = 53
+         protocol  = "tcp"
+         cidr_blocks = ["0.0.0.0/0"]
+     }  
+
+     ingress {
+         from_port = 53
+         to_port   = 53
+         protocol  = "udp"
+         cidr_blocks = ["0.0.0.0/0"]
+     }
+
      egress {
          from_port = 53
          to_port   = 53
@@ -32,8 +46,21 @@ resource "aws_security_group" "allow-tls" {
          to_port   = 80
          protocol  = "tcp"
          cidr_blocks = ["0.0.0.0/0"]
+     }
+
+     ingress {
+        from_port   = 22
+        to_port     = 22
+        protocol    = "tcp"
+        cidr_blocks = ["10.10.96.15/32"]
      }  
      
+     egress {
+        from_port   = 22
+        to_port     = 22
+        protocol    = "tcp"
+        cidr_blocks = ["10.10.96.15/32"]
+     }  
 }
 
 #allow ssh
@@ -58,6 +85,7 @@ resource "aws_security_group" "allow-ssh" {
      }  
 }
 
-  
+
+
 
 
