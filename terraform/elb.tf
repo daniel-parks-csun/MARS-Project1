@@ -2,6 +2,7 @@
 
 resource "aws_elb" "project1-elb" {
     name            = "project1-elb"
+    internal        = false
     subnets         = ["${aws_subnet.mars-private-1.id}","${aws_subnet.mars-private-2.id}"] 
     security_groups = ["${aws_security_group.allow-tls.id}"]
     listener {
@@ -25,5 +26,23 @@ connection_draining_timeout = 400
 tags = {
     Name = "project1-elb"
 }
-
 }
+data "aws_route53_zone" "mars" {
+    name           = "cit480mars.net"
+    private_zone   = false
+}
+
+resource "aws_route53_record" "build" {
+    provider       = "aws"
+    zone_id        = "${data.aws_route53_zone.mars.zone_id}"
+    name           = "cit480mars.net"
+    type           = "A"
+  
+  alias {
+      name                   = "${aws_elb.project1-elb.dns_name}"
+      zone_id                = "${aws_elb.project1-elb.zone_id}"
+      evaluate_target_health = false
+  }
+}
+
+

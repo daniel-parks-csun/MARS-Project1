@@ -3,7 +3,7 @@
 resource "aws_launch_configuration" "project1-launchconfig" {
     name_prefix             = "mars-launchconfig"
     image_id                = "ami-02fee746d0aeb7342"  #Needs to change to the hugo server once made
-    instance_type           = "t2.micro"
+    instance_type           = "t2.micro"    
     key_name                = "edwin's key"
     security_groups         = ["${aws_security_group.allow-tls.id}"]  
 }
