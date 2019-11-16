@@ -11,7 +11,6 @@ resource "aws_vpc" "mars-vpc" {
 }
 
 #Subnets
-
 resource "aws_subnet" "mars-private-1" {
   vpc_id                  = aws_vpc.mars-vpc.id
   cidr_block              = "10.10.0.0/19"
@@ -88,7 +87,6 @@ resource "aws_internet_gateway" "mars-gateway" {
 }
 
 #Route tables
-
 resource "aws_route_table" "mars-public" {
   vpc_id = aws_vpc.mars-vpc.id
   route {
