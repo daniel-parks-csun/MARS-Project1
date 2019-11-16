@@ -1,7 +1,5 @@
 # TERRAFORM
 
-## VPC
-
 ### _main.tf_:
 * Sets region to _us-west-2_
 * References the location of S3 bucket to keep the state.
@@ -27,14 +25,16 @@
 
 
 ### _elb.tf_:
-
+* Creates an ELB that sits in 2 availability zones: mars-private-1 amd mars-private-2
+* Sets port listeners on port 80 & 443.
+* Attaches SSL Cert to Port 443.
 
 
 ### _autoscale.tf_:
-
+* Creates new EC2 when CPU goes 20% over the threshold.
 
 
 ### _bastion.tf_:
-
+* Uses custom ami to create bastion instance that already has Fail2ban
 
 ### _securitygroup.tf_:
