@@ -37,9 +37,13 @@
 * Creates new EC2 when CPU goes 20% over the threshold.
 
 
+### _hugo.tf_:
+
+* Uses custom ami to create ubuntu instance pre-configured with NGINX and Hugo.
+
 ### _bastion.tf_:
 
-* Uses custom ami to create bastion instance that already has Fail2ban
+* Uses custom ami to create bastion instance that already has Fail2ban.
 
 ### _securitygroup.tf_:
 
