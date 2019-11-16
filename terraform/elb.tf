@@ -12,13 +12,13 @@ resource "aws_elb" "project1-elb" {
         lb_protocol       = "http"
     }
 
-    //listener {
-        //instance_port     = 443
-        //instance_protocol = "https"
-        //lb_port           = 443
-        //lb_protocol       = "https"
-        //ssl_certificate_id = "arn:aws:iam::123456789012:server-certificate/certName" #UPDATE with our cert
-    //}
+    listener {
+        instance_port     = 443
+        instance_protocol = "https"
+        lb_port           = 443
+        lb_protocol       = "https"
+        ssl_certificate_id = "arn:aws:acm:us-west-2:490411576806:certificate/c2c5057c-da75-4e17-9f05-a659a7cf4f90" 
+        }
 
     health_check{
         healthy_threshold   = 2
@@ -36,6 +36,7 @@ tags = {
     Name = "project1-elb"
 }
 }
+
 data "aws_route53_zone" "mars" {
     name           = "cit480mars.net"
     private_zone   = false

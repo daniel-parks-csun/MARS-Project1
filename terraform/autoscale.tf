@@ -2,9 +2,9 @@
 
 resource "aws_launch_configuration" "project1-launchconfig" {
     name_prefix             = "mars-launchconfig"
-    image_id                = "ami-02fee746d0aeb7342"  #Needs to change to the hugo server once made
+    image_id                = "ami-037b2dbea038fc501"  #Image of our Hugo Servers Change
     instance_type           = "t2.micro"    
-    key_name                = "hugo.key"
+    key_name                = "dp.cory"
     security_groups         = ["${aws_security_group.allow-tls.id}"]  
 }
 #ScaleUp
@@ -75,6 +75,7 @@ resource "aws_cloudwatch_metric_alarm" "project-mars-downalarm" {
   period                = "120"
   statistic             = "Average"
   threshold             = "5"
+  
 
   dimensions = {
     "AutoScalingGroupName" = "aws_autoscaling_group.project1-autoscale.name"
