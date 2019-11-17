@@ -2,9 +2,9 @@
 
 resource "aws_launch_configuration" "project1-launchconfig" {
     name_prefix             = "mars-launchconfig"
-    image_id                = "ami-037b2dbea038fc501"  #Image of our Hugo Servers Change
+    image_id                = "ami-059954dd92a8fa223"  #Image of our Hugo Servers Change
     instance_type           = "t2.micro"    
-    key_name                = "dp.cory"
+    key_name                = "hugo.key"  #AWS KEY
     security_groups         = ["${aws_security_group.allow-tls.id}"]  
 }
 #ScaleUp

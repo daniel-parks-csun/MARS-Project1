@@ -11,42 +11,9 @@ resource "aws_vpc" "mars-vpc" {
 }
 
 #Subnets
-resource "aws_subnet" "mars-private-1" {
-  vpc_id                  = aws_vpc.mars-vpc.id
-  cidr_block              = "10.10.0.0/19"
-  map_public_ip_on_launch = "false"
-  availability_zone       = "us-west-2a"
-  tags = {
-    Name = "private-subnet-1"
-    tier = "private"
-  }
-}
-
-resource "aws_subnet" "mars-private-2" {
-  vpc_id                  = aws_vpc.mars-vpc.id
-  cidr_block              = "10.10.32.0/19"
-  map_public_ip_on_launch = "false"
-  availability_zone       = "us-west-2b"
-  tags = {
-    Name = "private-subnet-2"
-    tier = "private"
-  }
-}
-
-resource "aws_subnet" "mars-private-3" {
-  vpc_id                  = aws_vpc.mars-vpc.id
-  cidr_block              = "10.10.64.0/19"
-  map_public_ip_on_launch = "false"
-  availability_zone       = "us-west-2c"
-  tags = {
-    Name = "private-subnet-3"
-    tier = "private"
-  }
-}
-
 resource "aws_subnet" "mars-public-1" {
   vpc_id                  = aws_vpc.mars-vpc.id
-  cidr_block              = "10.10.96.0/21"
+  cidr_block              = "10.10.0.0/19"
   map_public_ip_on_launch = "true"
   availability_zone       = "us-west-2a"
   tags = {
@@ -57,7 +24,7 @@ resource "aws_subnet" "mars-public-1" {
 
 resource "aws_subnet" "mars-public-2" {
   vpc_id                  = aws_vpc.mars-vpc.id
-  cidr_block              = "10.10.104.0/21"
+  cidr_block              = "10.10.32.0/19"
   map_public_ip_on_launch = "true"
   availability_zone       = "us-west-2b"
   tags = {
@@ -68,12 +35,45 @@ resource "aws_subnet" "mars-public-2" {
 
 resource "aws_subnet" "mars-public-3" {
   vpc_id                  = aws_vpc.mars-vpc.id
-  cidr_block              = "10.10.112.0/21"
+  cidr_block              = "10.10.64.0/19"
   map_public_ip_on_launch = "true"
   availability_zone       = "us-west-2c"
   tags = {
     Name = "public-subnet-3"
     tier = "public"
+  }
+}
+
+resource "aws_subnet" "mars-private-1" {
+  vpc_id                  = aws_vpc.mars-vpc.id
+  cidr_block              = "10.10.96.0/21"
+  map_public_ip_on_launch = "false"
+  availability_zone       = "us-west-2a"
+  tags = {
+    Name = "private-subnet-1"
+    tier = "private"
+  }
+}
+
+resource "aws_subnet" "mars-private-2" {
+  vpc_id                  = aws_vpc.mars-vpc.id
+  cidr_block              = "10.10.104.0/21"
+  map_public_ip_on_launch = "false"
+  availability_zone       = "us-west-2b"
+  tags = {
+    Name = "private-subnet-2"
+    tier = "private"
+  }
+}
+
+resource "aws_subnet" "mars-private-3" {
+  vpc_id                  = aws_vpc.mars-vpc.id
+  cidr_block              = "10.10.112.0/21"
+  map_public_ip_on_launch = "false"
+  availability_zone       = "us-west-2c"
+  tags = {
+    Name = "private-subnet-3"
+    tier = "private"
   }
 }
 
