@@ -24,14 +24,14 @@ resource "aws_security_group" "allow-tls" {
         from_port   = 22
         to_port     = 22
         protocol    = "tcp"
-        cidr_blocks = ["10.10.96.15/32"]
+        cidr_blocks = ["10.10.0.15/32"]
      }  
      
      egress {
         from_port   = 22
         to_port     = 22
         protocol    = "tcp"
-        cidr_blocks = ["10.10.96.15/32"]
+        cidr_blocks = ["10.10.0.15/32"]
      }  
 }
 
